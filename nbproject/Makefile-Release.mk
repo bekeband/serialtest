@@ -35,6 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/426300299/PICProgram.o \
+	${OBJECTDIR}/_ext/426300299/PICProgramLine.o \
+	${OBJECTDIR}/_ext/426300299/packets.o \
 	${OBJECTDIR}/_ext/426300299/serial.o \
 	${OBJECTDIR}/main.o
 
@@ -62,6 +65,21 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/serialtest.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/serialtest ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/_ext/426300299/PICProgram.o: ../SerialTest/PICProgram.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgram.o ../SerialTest/PICProgram.cpp
+
+${OBJECTDIR}/_ext/426300299/PICProgramLine.o: ../SerialTest/PICProgramLine.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgramLine.o ../SerialTest/PICProgramLine.cpp
+
+${OBJECTDIR}/_ext/426300299/packets.o: ../SerialTest/packets.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/packets.o ../SerialTest/packets.cpp
 
 ${OBJECTDIR}/_ext/426300299/serial.o: ../SerialTest/serial.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/426300299

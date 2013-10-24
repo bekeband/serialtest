@@ -1,19 +1,19 @@
 /* 
  * File:   serial.cpp
- * Author: user
- * 
+ * Author: user 
  * Created on 2013. október 20., 11:45
  */
 
 #include "serial.h"
+#include <iostream>
 
 serial::serial() {
   comHandle = 0;
 }
 
-serial::serial(string aPortName, DWORD aBaudRate = 9600, BYTE aByteSize = 8, 
-        DWORD aInBufferSize = DEFAULT_IN_BUFFER_SIZE,
-        DWORD aOutBufferSize = DEFAULT_OUT_BUFFER_SIZE) {
+serial::serial(string aPortName, DWORD aBaudRate, int aByteSize, DWORD aInBufferSize,
+        DWORD aOutBufferSize) 
+{
   serial(); /* reset comHandle... */
   PortName = aPortName;
   BaudRate = aBaudRate;
@@ -22,15 +22,11 @@ serial::serial(string aPortName, DWORD aBaudRate = 9600, BYTE aByteSize = 8,
   OutBufferSize = aOutBufferSize;
 }
 
-serial::serial(string aPortName)
-{
-  serial(aPortName, 9600, 8, DEFAULT_IN_BUFFER_SIZE, DEFAULT_OUT_BUFFER_SIZE);
-}
-bool serial::OpenPort()
-{
+bool serial::OpenPort() throw()
+{  int g = 0;
     /* Createfile with PortName filename. */
   comHandle = CreateFile( PortName.c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, 
-          OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+      OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
   if (comHandle == NULL) { return false;}
   
   /* Setting the commtimeouts structure. */
@@ -60,7 +56,15 @@ bool serial::OpenPort()
   return false;
 }
 
-bool serial::WriteChar(char c)
+void serial::ClosePort()
+{
+#if defined (_WIN32)
+    if (comHandle)
+        CloseHandle(comHandle);
+#endif
+}
+
+bool serial::WriteData(char c)
 { 
 #if defined (_WIN32)
   DWORD dwBytesWritten;
@@ -68,12 +72,20 @@ bool serial::WriteChar(char c)
 #endif
 }
     
+bool serial::WriteData(int data)
+{
+#if defined (_WIN32)
+  DWORD dwBytesWritten;
+  return WriteFile(comHandle, &data, 1, &dwBytesWritten, NULL );    
+#endif    
+}
+
 bool serial::WriteBuffer(unsigned char* buffer, int size)
 {
 #if defined (_WIN32)
   for (int i = 0; i < size; i++)
   {
-    if (!WriteChar(buffer[i]))
+    if (!WriteData(buffer[i]))
     {
       return false;     
     }
@@ -81,7 +93,7 @@ bool serial::WriteBuffer(unsigned char* buffer, int size)
   return true;
 #endif
 }
-bool serial::ReadBuffer(unsigned char* buffer, int size)
+bool serial::ReadBuffer(unsigned char* buffer, int &size)
 {
 #if defined (_WIN32)
   DWORD dwBytesRead, dwErrorFlags;
@@ -93,6 +105,7 @@ bool serial::ReadBuffer(unsigned char* buffer, int size)
   dwBytesRead = (DWORD) ComStat.cbInQue;
   if (ReadFile(comHandle, buffer, dwBytesRead, &dwBytesRead, NULL))
   {
+      size = dwBytesRead;
     return true;    
   };
   return false;
@@ -102,13 +115,20 @@ bool serial::ReadBuffer(unsigned char* buffer, int size)
 serial::serial(const serial& orig) {
 }
 
-serial::~serial() {
-#if defined (_WIN32)
-  if (comHandle != 0) CloseHandle(comHandle);
-#endif
-#if defined (_UNIX)
-  /* TODO _UNIX File close procedure !!!*/
-#endif
+serial::~serial()
+{
+    ClosePort();
+}
+
+ostream& serial::PrintFeatures(ostream& o)
+{
+    o << "Com port: " << GetPortName() << endl;
+    o << "Baud rate: " << BaudRate << endl;
+    o << "Byte size: " << ByteSize << endl;
+    o << "Inbuffer size: " << InBufferSize << endl;
+    o << "Outbuffer size: " << OutBufferSize << endl;
+
+  return o;    
 }
 
 ostream& operator <<(ostream &out, const serial &s) {
