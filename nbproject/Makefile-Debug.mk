@@ -37,7 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/426300299/PICProgram.o \
 	${OBJECTDIR}/_ext/426300299/PICProgramLine.o \
-	${OBJECTDIR}/_ext/426300299/packets.o \
 	${OBJECTDIR}/_ext/426300299/serial.o \
 	${OBJECTDIR}/main.o
 
@@ -75,11 +74,6 @@ ${OBJECTDIR}/_ext/426300299/PICProgramLine.o: ../SerialTest/PICProgramLine.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgramLine.o ../SerialTest/PICProgramLine.cpp
-
-${OBJECTDIR}/_ext/426300299/packets.o: ../SerialTest/packets.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
-	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/packets.o ../SerialTest/packets.cpp
 
 ${OBJECTDIR}/_ext/426300299/serial.o: ../SerialTest/serial.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/426300299

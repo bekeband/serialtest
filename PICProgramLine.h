@@ -8,7 +8,11 @@
 #define	PICPROGRAMLINE_H
 
 #include <iostream>
-//#include <array>
+#include <vector>
+
+#define START_CHARACTER ':'
+
+#define E_NO_START_CHARACTER 34
 
 using namespace std;
 
@@ -17,24 +21,25 @@ public:
     PICProgramLine();
     PICProgramLine(const PICProgramLine& orig);
     virtual ~PICProgramLine();
-
+    inline const void SetByteCount(unsigned char aByteCount) {ByteCount = aByteCount;};
     /* Type of program data. */
-    enum e_DataType {PRG, EEPROM, CONFIG};    
-    
-private:
+    enum e_DataType {PRG, EEPROM, CONFIG};
     
 public:
     
     /* Write the program line to output stream. */
     friend ostream& operator << (ostream &, const PICProgramLine &);
     /* A program line reading from input stream. */
-    friend istream& operator >> (istream &, const PICProgramLine &);    
+    friend istream& operator >> (istream &, const PICProgramLine);    
 
-public:    
+public:  
     unsigned char ByteCount;
     unsigned int Address;
     enum e_DataType LineType;   
-    unsigned char* DataBuffer;
+    
+    vector<unsigned char> DataLine;
+    
+//    unsigned char* DataBuffer;
     
 private:     
 public:
