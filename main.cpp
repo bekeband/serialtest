@@ -16,6 +16,7 @@
 #include "serial.h"
 #include "bootloader.h"
 #include "PICProgramLine.h"
+#include "HexClass.h"
 
 using namespace std;
 
@@ -32,17 +33,20 @@ int main(int argc, char** argv)
  ifile.exceptions (ifstream::failbit);
  
  PICProgramLine Line;
+ HexClass HC(0, 2);
  
  try
  {
   ifile.open(o.c_str());
   
   int n = 0;  
-  while (!ifile.eof())
+//  while (!ifile.eof())
   {
 //    ifile >> nextline;
 //      cout << Line;
-    ifile >> Line;  
+//    ifile >> Line;
+      ifile >> c;
+    ifile >> HC;
     
     cout << "N : " << n++ << ", F = " << "\"" << nextline << "\"" << endl;
   };

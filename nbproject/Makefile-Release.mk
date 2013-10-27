@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/426300299/PICProgram.o \
 	${OBJECTDIR}/_ext/426300299/PICProgramLine.o \
 	${OBJECTDIR}/_ext/426300299/serial.o \
+	${OBJECTDIR}/HexClass.o \
 	${OBJECTDIR}/main.o
 
 
@@ -79,6 +80,11 @@ ${OBJECTDIR}/_ext/426300299/serial.o: ../SerialTest/serial.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/serial.o ../SerialTest/serial.cpp
+
+${OBJECTDIR}/HexClass.o: HexClass.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/HexClass.o HexClass.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

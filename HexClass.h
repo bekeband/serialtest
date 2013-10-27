@@ -16,7 +16,8 @@ using namespace std;
 
 class HexClass {
 public:
-    inline HexClass(unsigned char aValue) {Value = aValue; FieldWidth = 4;};
+    inline HexClass() {Value = 0; FieldWidth = 4;};
+    inline HexClass(unsigned char aValue, int aFieldWidth) {Value = aValue; FieldWidth = aFieldWidth;};
     inline HexClass(const HexClass& orig) {Value = orig.Value; FieldWidth = orig.FieldWidth; };
     virtual ~HexClass();
     
@@ -27,7 +28,9 @@ public:
     friend istream& operator >> (istream &, const HexClass);        
     
 private:
+    /* long value max field width is 8 characters. */
     long Value;
+    /* The width in characters of input value. */
     int FieldWidth;
 };
 

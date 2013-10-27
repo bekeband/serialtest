@@ -4,6 +4,11 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>../SerialTest/HexClass.h</itemPath>
+      <itemPath>../SerialTest/PICProgram.h</itemPath>
+      <itemPath>../SerialTest/PICProgramLine.h</itemPath>
+      <itemPath>../SerialTest/bootloader.h</itemPath>
+      <itemPath>../SerialTest/serial.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -12,14 +17,11 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>HexClass.cpp</itemPath>
       <itemPath>../SerialTest/PICProgram.cpp</itemPath>
-      <itemPath>../SerialTest/PICProgram.h</itemPath>
       <itemPath>../SerialTest/PICProgramLine.cpp</itemPath>
-      <itemPath>../SerialTest/PICProgramLine.h</itemPath>
-      <itemPath>../SerialTest/bootloader.h</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>../SerialTest/serial.cpp</itemPath>
-      <itemPath>../SerialTest/serial.h</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -45,6 +47,8 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="../SerialTest/HexClass.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../SerialTest/PICProgram.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../SerialTest/PICProgram.h" ex="false" tool="3" flavor2="0">
@@ -58,6 +62,8 @@
       <item path="../SerialTest/serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../SerialTest/serial.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HexClass.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -83,6 +89,8 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="../SerialTest/HexClass.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../SerialTest/PICProgram.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../SerialTest/PICProgram.h" ex="false" tool="3" flavor2="0">
@@ -96,6 +104,8 @@
       <item path="../SerialTest/serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../SerialTest/serial.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HexClass.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
