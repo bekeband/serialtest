@@ -25,7 +25,7 @@ public:
     inline unsigned char GetValue() {return Value; };
     
     friend ostream& operator << (ostream &, const HexClass&);
-    friend istream& operator >> (istream &, const HexClass&);        
+    friend istream& operator >> (istream &, HexClass&);        
     istream& operator >> (istream &);        
     
 //private:

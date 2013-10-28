@@ -18,11 +18,12 @@ PICProgramLine::PICProgramLine(const PICProgramLine& orig) {
 PICProgramLine::~PICProgramLine() {
 }
 
-istream& operator >> (istream& i, const PICProgramLine& p)
+istream& operator >> (istream& i, PICProgramLine& p)
 {
   char startchar;
   HexClass bytecount(0, 2), linetype(0, 2);
   HexClass address(0, 4);
+  HexClass nextbyte(0, 2);
   
   /* read, and test the sterta character ... */
   i >> startchar;
@@ -36,44 +37,58 @@ istream& operator >> (istream& i, const PICProgramLine& p)
   try
   {
     i >> bytecount;
-    cout << bytecount << endl;
     i >> address;
     i >> linetype; 
-  }catch (exception e)
-  {
-      cout << "Exception raising. Type = " << e.what() << endl;
-      return i;
-  }
-  p.SetByteCount(10); // ByteCount = (bytecount.GetValue());
-  p.Address = address.GetValue();
-  p.LineType = (enum PICProgramLine::e_DataType)linetype.GetValue();
+    p.ByteCount = bytecount.Value;
+    p.Address = address.Value;
+  p.LineType = (enum PICProgramLine::e_DataType)linetype.Value;
   
-  vector<unsigned char>::iterator it;
+//  vector<unsigned char>::iterator it;
   for (int ptr = 0; ptr < p.ByteCount; ptr++)
   {
-    p.DataLine.insert(p.DataLine.end(), '4');
+    i >> nextbyte;
+    p.DataLine.insert(p.DataLine.end(), nextbyte.Value);
+  }
+  }catch (exception e)
+  {
+    cout << "Exception raising. Type = " << e.what() << endl;
+    return i;
+  }catch (...)
+  {
+    cout << "Exception raising. Type = " << endl;
+    return i;
   }
   return i;
 }
 
-ostream& operator << (ostream& o, const PICProgramLine& p)
+ostream& operator << (ostream& o, PICProgramLine& p)
 {
 #if defined (DEBUG)
-    cout << "ByteCount = ";
+    cout << " ByteCount = ";
 #endif
   o << p.ByteCount;
   #if defined (DEBUG)
-    cout << "Address = ";
+    cout << " Address = ";
 #endif
   o << p.Address;
-  #if defined (DEBUG)
-    cout << "LineType = ";
+#if defined (DEBUG)
+    cout << " LineType = ";
 #endif
   o << p.LineType;
-  vector<unsigned char>::iterator it;
+  
+#if defined (DEBUG)
+    cout << " p.DataLine.size() = " << p.DataLine.size() << endl;
+  
+    for (int i = 0; i < p.DataLine.size(); i++)
+    {
+      cout << hex << "p.DataLine.at(i) = " << (int)p.DataLine.at(i) << endl;
+    }
+#endif
+  
+/*  vector<unsigned char>::iterator it;
   for (p.DataLine.begin() ; it != p.DataLine.end(); ++it)
   {
     o << *it;  
-  }
+  }*/
   return o;
 }

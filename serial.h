@@ -20,8 +20,9 @@
 #include <windows.h>
 #define FILE_HANDLE HANDLE
 #endif
-#if defined (_UNIX)
+#if defined (LINUX)
 #define FILE_HANDLE int
+#define DWORD unsigned int 
 #endif
 
 using namespace std;
@@ -87,7 +88,7 @@ private:
 
 #endif
     /* UNIX style com structure. */
-#if defined (_UNIX)
+#if defined (LINUX)
 
 #endif
     /* Globa communication features. */

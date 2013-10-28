@@ -53,7 +53,7 @@ delete buffer;
 return i;
 }
 
-istream& operator >> (istream& i, const HexClass& b)
+istream& operator >> (istream& i, HexClass& b)
 { 
     
 char* buffer;
@@ -70,8 +70,7 @@ try {
   cout << "String = " << in << endl;
 #endif
   stringstream si(in);
-  si >> hex >> bValue;
-//  b.SetValue(bValue);
+  si >> hex >> b.Value;
 #ifdef DEBUG
   cout << "Input Value = " << b.Value << endl;
 #endif

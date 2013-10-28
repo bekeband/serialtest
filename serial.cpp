@@ -24,13 +24,15 @@ serial::serial(string aPortName, DWORD aBaudRate, int aByteSize, DWORD aInBuffer
 
 bool serial::OpenPort() throw()
 {  int g = 0;
-    /* Createfile with PortName filename. */
+
+#if defined (_WIN32)    /* TODO Must parameterize !!! */
+
+/* Createfile with PortName filename. */
   comHandle = CreateFile( PortName.c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, 
       OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
   if (comHandle == NULL) { return false;}
   
   /* Setting the commtimeouts structure. */
-#if defined (_WIN32)    /* TODO Must parameterize !!! */
 
   dcb.DCBlength = sizeof( DCB );
   GetCommState(comHandle, &dcb );

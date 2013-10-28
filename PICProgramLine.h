@@ -21,16 +21,16 @@ public:
     PICProgramLine();
     PICProgramLine(const PICProgramLine& orig);
     virtual ~PICProgramLine();
-    inline void const SetByteCount(unsigned char aByteCount) const {}; //ByteCount = aByteCount;
+    inline void SetByteCount(unsigned char aByteCount) {ByteCount = aByteCount;}; //
     /* Type of program data. */
     enum e_DataType {PRG, EEPROM, CONFIG};
     
 public:
     
     /* Write the program line to output stream. */
-    friend ostream& operator << (ostream &, const PICProgramLine&);
+    friend ostream& operator << (ostream &, PICProgramLine&);
     /* A program line reading from input stream. */
-    friend istream& operator >> (istream &, const PICProgramLine&);    
+    friend istream& operator >> (istream &, PICProgramLine&);    
 
 private:  
     unsigned char ByteCount;

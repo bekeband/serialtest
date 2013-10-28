@@ -48,7 +48,7 @@ int main(int argc, char** argv)
 //      ifile >> c;
     ifile >> Line;
  
-    cout << "N : " << n++ << ", F = " << "\"" << Line << "\"" << endl;
+    cout << Line << endl;
   };
   
  } catch (ifstream::failure e)
