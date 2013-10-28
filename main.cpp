@@ -45,10 +45,10 @@ int main(int argc, char** argv)
 //    ifile >> nextline;
 //      cout << Line;
 //    ifile >> Line;
-      ifile >> c;
-    ifile >> HC;
-    
-    cout << "N : " << n++ << ", F = " << "\"" << nextline << "\"" << endl;
+//      ifile >> c;
+    ifile >> Line;
+ 
+    cout << "N : " << n++ << ", F = " << "\"" << Line << "\"" << endl;
   };
   
  } catch (ifstream::failure e)

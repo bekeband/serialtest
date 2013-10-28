@@ -21,14 +21,15 @@ public:
     inline HexClass(const HexClass& orig) {Value = orig.Value; FieldWidth = orig.FieldWidth; };
     virtual ~HexClass();
     
-    inline void SetValue(unsigned char aValue) {Value = aValue; };
+    inline void const SetValue(const long aValue) {Value = aValue; };
     inline unsigned char GetValue() {return Value; };
     
-    friend ostream& operator << (ostream &, const HexClass &);
-    friend istream& operator >> (istream &, const HexClass);        
+    friend ostream& operator << (ostream &, const HexClass&);
+    friend istream& operator >> (istream &, const HexClass&);        
+    istream& operator >> (istream &);        
     
-private:
-    /* long value max field width is 8 characters. */
+//private:
+    /* long value than max field width is 8 characters. */
     long Value;
     /* The width in characters of input value. */
     int FieldWidth;

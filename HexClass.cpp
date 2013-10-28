@@ -18,47 +18,74 @@ ostream& operator << (ostream& o, const HexClass& b)
   return o;
 }
 
-istream& operator >> (istream& i, HexClass b)
-{ char c; long result = 0;
-char* buffer;
+istream& HexClass::operator >>(istream& i)
+{
+ char* buffer;
+long bValue;
 
 i.exceptions(ios::failbit | ios::badbit);
 try {
-  /* malloc a buffer to the input datas. */
-  buffer = new char[b.FieldWidth + 1];
-  /* read Fieldwidth bytes from input stream. */
-  i.read(buffer, b.FieldWidth); 
-  string in(buffer, b.FieldWidth);
+  
+  buffer = new char[FieldWidth + 1]; /* malloc a buffer to the input datas. */
+  
+  i.read(buffer, FieldWidth); /* read Fieldwidth bytes from input stream. */
+  string in(buffer, FieldWidth);
+#ifdef DEBUG
   cout << "String = " << in << endl;
+#endif
   stringstream si(in);
-
-  si >> hex >> b.Value;
-  
-  cout << "Input Value = " << b.Value << endl;
-  
+  si >> hex >> bValue;
+//  b.SetValue(bValue);
+#ifdef DEBUG
+  cout << "Input Value = " << Value << endl;
+#endif
+  /* TODO I don't no what kind of exception generated if input not abuse of 
+   * propriertary recommends! */
 }catch (exception e)
 { 
+#ifdef DEBUG
   cout << "HexClass operator >> exception e = " << e.what() << endl;
-}catch (bad_alloc ba)
-{
-  cout << "Memory allocation error ba = " << ba.what() << endl;    
+#endif
 }
-
 
 delete buffer;
 
-/*  i >> c;
-  for (int i = 0; i < b.FieldWidth; i++)
-  {
-    if (isxdigit(c))
-    {
-//      b.SetValue(c - '0');
-      result += (strtol(c,NULL,16) * pow(16, b.FieldWidth - i));
-    } else
-    {
-      throw(CONVERSION_ERROR);
-    }
-  };  */
-  return i;
+return i;
+}
+
+istream& operator >> (istream& i, const HexClass& b)
+{ 
+    
+char* buffer;
+long bValue;
+
+i.exceptions(ios::failbit | ios::badbit);
+try {
+  
+  buffer = new char[b.FieldWidth + 1]; /* malloc a buffer to the input datas. */
+  
+  i.read(buffer, b.FieldWidth); /* read Fieldwidth bytes from input stream. */
+  string in(buffer, b.FieldWidth);
+#ifdef DEBUG
+  cout << "String = " << in << endl;
+#endif
+  stringstream si(in);
+  si >> hex >> bValue;
+//  b.SetValue(bValue);
+#ifdef DEBUG
+  cout << "Input Value = " << b.Value << endl;
+#endif
+  /* TODO I don't no what kind of exception generated if input not abuse of 
+   * propriertary recommends! */
+}catch (exception e)
+{ 
+#ifdef DEBUG
+  cout << "HexClass operator >> exception e = " << e.what() << endl;
+#endif
+}
+
+delete buffer;
+
+return i;
 }
 

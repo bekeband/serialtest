@@ -69,27 +69,27 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/serialtest.exe: ${OBJECTFILES}
 ${OBJECTDIR}/_ext/426300299/PICProgram.o: ../SerialTest/PICProgram.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgram.o ../SerialTest/PICProgram.cpp
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgram.o ../SerialTest/PICProgram.cpp
 
 ${OBJECTDIR}/_ext/426300299/PICProgramLine.o: ../SerialTest/PICProgramLine.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgramLine.o ../SerialTest/PICProgramLine.cpp
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgramLine.o ../SerialTest/PICProgramLine.cpp
 
 ${OBJECTDIR}/_ext/426300299/serial.o: ../SerialTest/serial.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/serial.o ../SerialTest/serial.cpp
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/serial.o ../SerialTest/serial.cpp
 
 ${OBJECTDIR}/HexClass.o: HexClass.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/HexClass.o HexClass.cpp
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/HexClass.o HexClass.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
