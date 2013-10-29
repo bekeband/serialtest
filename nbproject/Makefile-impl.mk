@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=SerialTest
 
 # Active Configuration
-DEFAULTCONF=Debug
+DEFAULTCONF=Debug__Winfos_
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release Debug__linux_ 
+ALLCONFS=Debug__Winfos_ Release Debug__linux_ Release__Winfos_ 
 
 
 # build

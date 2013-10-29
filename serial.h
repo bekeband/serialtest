@@ -68,7 +68,8 @@ public:
     /* Destructor with file close. */
     virtual ~serial();
 
-    friend ostream& operator<<(ostream &, const serial &);
+    friend ostream& operator<<(ostream&, const serial&);
+    friend istream& operator>>(istream&, serial&);
 
 private:
     string PortName;

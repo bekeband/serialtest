@@ -21,9 +21,9 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
-CND_DLIB_EXT=so
-CND_CONF=Debug
+CND_PLATFORM=MinGW-Windows
+CND_DLIB_EXT=dll
+CND_CONF=Release__Winfos_
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -60,36 +60,36 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/serialtest
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/serialtest.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/serialtest: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/serialtest.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/serialtest ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/_ext/426300299/PICProgram.o: ../SerialTest/PICProgram.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgram.o ../SerialTest/PICProgram.cpp
+	$(COMPILE.cc) -O2 -DWINDOWS -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgram.o ../SerialTest/PICProgram.cpp
 
 ${OBJECTDIR}/_ext/426300299/PICProgramLine.o: ../SerialTest/PICProgramLine.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgramLine.o ../SerialTest/PICProgramLine.cpp
+	$(COMPILE.cc) -O2 -DWINDOWS -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgramLine.o ../SerialTest/PICProgramLine.cpp
 
 ${OBJECTDIR}/_ext/426300299/serial.o: ../SerialTest/serial.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/serial.o ../SerialTest/serial.cpp
+	$(COMPILE.cc) -O2 -DWINDOWS -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/serial.o ../SerialTest/serial.cpp
 
 ${OBJECTDIR}/HexClass.o: HexClass.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/HexClass.o HexClass.cpp
+	$(COMPILE.cc) -O2 -DWINDOWS -MMD -MP -MF $@.d -o ${OBJECTDIR}/HexClass.o HexClass.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -DWINDOWS -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
@@ -97,7 +97,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/serialtest
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/serialtest.exe
 
 # Subprojects
 .clean-subprojects:

@@ -31,20 +31,20 @@ try {
   i.read(buffer, FieldWidth); /* read Fieldwidth bytes from input stream. */
   string in(buffer, FieldWidth);
 #ifdef DEBUG
-  cout << "String = " << in << endl;
+  cerr << "String = " << in << endl;
 #endif
   stringstream si(in);
   si >> hex >> bValue;
 //  b.SetValue(bValue);
 #ifdef DEBUG
-  cout << "Input Value = " << Value << endl;
+  cerr << "Input Value = " << Value << endl;
 #endif
   /* TODO I don't no what kind of exception generated if input not abuse of 
    * propriertary recommends! */
 }catch (exception e)
 { 
 #ifdef DEBUG
-  cout << "HexClass operator >> exception e = " << e.what() << endl;
+  cerr << "HexClass operator >> exception e = " << e.what() << endl;
 #endif
 }
 
@@ -67,19 +67,19 @@ try {
   i.read(buffer, b.FieldWidth); /* read Fieldwidth bytes from input stream. */
   string in(buffer, b.FieldWidth);
 #ifdef DEBUG
-  cout << "String = " << in << endl;
+  cerr << "String = " << in << endl;
 #endif
   stringstream si(in);
   si >> hex >> b.Value;
 #ifdef DEBUG
-  cout << "Input Value = " << b.Value << endl;
+  cerr << "Input Value = " << b.Value << endl;
 #endif
   /* TODO I don't no what kind of exception generated if input not abuse of 
    * propriertary recommends! */
 }catch (exception e)
 { 
 #ifdef DEBUG
-  cout << "HexClass operator >> exception e = " << e.what() << endl;
+  cerr << "HexClass operator >> exception e = " << e.what() << endl;
 #endif
 }
 

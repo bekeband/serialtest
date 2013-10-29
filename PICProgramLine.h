@@ -35,11 +35,10 @@ public:
 private:  
     unsigned char ByteCount;
     unsigned int Address;
+    unsigned char CrcByte;
     enum e_DataType LineType;   
     
-    vector<unsigned char> DataLine;
-    
-//    unsigned char* DataBuffer;
+    vector<unsigned char> DataLine; /* DataLine array in vector. */
     
 private:     
 public:

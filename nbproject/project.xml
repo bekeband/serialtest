@@ -12,7 +12,7 @@
             <sourceRootList/>
             <confList>
                 <confElem>
-                    <name>Debug</name>
+                    <name>Debug__Winfos_</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
@@ -21,6 +21,10 @@
                 </confElem>
                 <confElem>
                     <name>Debug__linux_</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Release__Winfos_</name>
                     <type>1</type>
                 </confElem>
             </confList>

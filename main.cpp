@@ -23,7 +23,7 @@ using namespace std;
 int main(int argc, char** argv) 
 {
  unsigned char c;
- PICProgramLine PLine;
+
  
  string o("test.hex");
  string nextline;
@@ -32,25 +32,25 @@ int main(int argc, char** argv)
  /* failbit, badbit exceptions */
  ifile.exceptions (ifstream::failbit);
  
- PICProgramLine Line;
- HexClass HC(0, 2);
+ fstream ofile("out.bin", ios::binary | ios::out);
  
  try
  {
   ifile.open(o.c_str());
-  
   int n = 0;  
-//  while (!ifile.eof())
+  while (!ifile.eof())
   {
+    PICProgramLine Line;
 //    ifile >> nextline;
 //      cout << Line;
 //    ifile >> Line;
 //      ifile >> c;
     ifile >> Line;
  
-    cout << Line << endl;
+    ofile << Line;
   };
-  
+  ofile.close();
+  ifile.close();
  } catch (ifstream::failure e)
  {
    if (!ifile.eof())
