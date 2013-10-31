@@ -187,22 +187,32 @@
       <item path="../SerialTest/HexClass.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../SerialTest/PICProgram.cpp" ex="false" tool="1" flavor2="9">
+        <ccTool>
+        </ccTool>
       </item>
       <item path="../SerialTest/PICProgram.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../SerialTest/PICProgramLine.cpp" ex="false" tool="1" flavor2="9">
+        <ccTool>
+        </ccTool>
       </item>
       <item path="../SerialTest/PICProgramLine.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../SerialTest/bootloader.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../SerialTest/serial.cpp" ex="false" tool="1" flavor2="9">
+        <ccTool>
+        </ccTool>
       </item>
       <item path="../SerialTest/serial.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HexClass.cpp" ex="false" tool="1" flavor2="9">
+        <ccTool>
+        </ccTool>
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
+        <ccTool>
+        </ccTool>
       </item>
     </conf>
   </confs>

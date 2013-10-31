@@ -57,7 +57,7 @@ int main(int argc, char** argv)
      cout << "Exception opening/reading/closing file code = " << e.what() << endl;
    else
    {
-       /* Phanton exception TODO I must do it anithing. 
+       /* Phantom exception TODO I must do it anithing. 
        cout << "Phantom exception occurs." << endl;*/       
    }
  } catch (int e)

@@ -9,24 +9,27 @@
 #include <sstream>
 #include "HexClass.h"
 
-HexClass::~HexClass() {
-}
+#if defined (KELL_E)
 
-ostream& operator << (ostream& o, const HexClass& b)
-{
-  o << b.Value;
-  return o;
-}
+template ostream& HexClass::PrintHex(ostream& o) 
+{ unsigned char* chr = (unsigned char*)&Value;
+  for (int i = 0; i < sizeof(Value); i++)
+  { 
+    o << hex << setw(2) << std::setfill('0') << (int)*chr++;
+  }
+  return o; 
+};
 
-istream& HexClass::operator >>(istream& i)
+
+istream& HexClass<typename>::operator >>(istream& i, HexClass& h)
 {
  char* buffer;
 long bValue;
-
+int FieldWidth = sizeof(Value) ;
 i.exceptions(ios::failbit | ios::badbit);
 try {
   
-  buffer = new char[FieldWidth + 1]; /* malloc a buffer to the input datas. */
+//  buffer = new char[sizeof(Data) + 1]; /* malloc a buffer to the input datas. */
   
   i.read(buffer, FieldWidth); /* read Fieldwidth bytes from input stream. */
   string in(buffer, FieldWidth);
@@ -88,3 +91,4 @@ delete buffer;
 return i;
 }
 
+#endif

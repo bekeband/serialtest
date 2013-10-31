@@ -24,9 +24,8 @@ PICProgramLine::~PICProgramLine() {
 istream& operator >> (istream& i, PICProgramLine& p)
 {
   char startchar;
-  HexClass bytecount(0, 2), linetype(0, 2), crc(0, 2);
-  HexClass address(0, 4);
-  HexClass nextbyte(0, 2);
+  HexClass<char> bytecount, linetype, crc, nextbyte;
+  HexClass<short int> address;
   
   /* read, and test the sterta character ... */
   i >> startchar;
@@ -39,19 +38,23 @@ istream& operator >> (istream& i, PICProgramLine& p)
   };
   try
   {
-    i >> bytecount >> address >> linetype;
+    
+    bytecount.GetHex(i);
+    address.GetHex(i);
+    linetype.GetHex(i);
+    
   p.ByteCount = bytecount.Value;
   p.Address = address.Value;
   p.LineType = (enum PICProgramLine::e_DataType)linetype.Value;
   
   for (int ptr = 0; ptr < p.ByteCount; ptr++)
   {
-    i >> nextbyte;
+    nextbyte.GetHex(i);
     p.DataLine.insert(p.DataLine.end(), nextbyte.Value);
   }
   
   /* At the end we read the crc byte. */
-  i >> crc;
+  crc.GetHex(i);
   p.CrcByte = crc.Value;
   
   }catch (exception e)
@@ -69,15 +72,15 @@ istream& operator >> (istream& i, PICProgramLine& p)
 ostream& operator << (ostream& o, PICProgramLine& p)
 {
 #if defined (DEBUG)
-    cerr << " ByteCount = ";
+    cerr << " ByteCount = " << (int)p.ByteCount;
 #endif
   o << p.ByteCount;
 #if defined (DEBUG)
-    cerr << " Address = ";
+    cerr << " Address = " << (int)p.Address;
 #endif
   o << p.Address;
 #if defined (DEBUG)
-    cerr << " LineType = ";
+    cerr << " LineType = " << (int)p.LineType;
 #endif
   o << p.LineType;
 
@@ -93,8 +96,6 @@ int numb = 0;
       numb++ <<  ") = " << hex << setw(2) << setfill('0') << (int)(*it) << endl;
   } 
 #endif
-
-
   for (it = p.DataLine.begin(); it != p.DataLine.end(); ++it)
   {
     o << (*it);  
