@@ -8,6 +8,7 @@
       <itemPath>../SerialTest/PICProgram.h</itemPath>
       <itemPath>../SerialTest/PICProgramLine.h</itemPath>
       <itemPath>../SerialTest/bootloader.h</itemPath>
+      <itemPath>cmd.h</itemPath>
       <itemPath>opersys.h</itemPath>
       <itemPath>../SerialTest/serialstream.h</itemPath>
       <itemPath>throwcodes.h</itemPath>
@@ -22,6 +23,7 @@
       <itemPath>HexClass.cpp</itemPath>
       <itemPath>../SerialTest/PICProgram.cpp</itemPath>
       <itemPath>../SerialTest/PICProgramLine.cpp</itemPath>
+      <itemPath>cmd.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>../SerialTest/serialstream.cpp</itemPath>
     </logicalFolder>
@@ -79,6 +81,10 @@
       </item>
       <item path="HexClass.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="cmd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="cmd.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="opersys.h" ex="false" tool="3" flavor2="0">
@@ -124,6 +130,10 @@
       </item>
       <item path="HexClass.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="cmd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="cmd.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="opersys.h" ex="false" tool="3" flavor2="0">
@@ -167,6 +177,10 @@
       <item path="../SerialTest/serialstream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HexClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="cmd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="cmd.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -223,6 +237,10 @@
       <item path="HexClass.cpp" ex="false" tool="1" flavor2="9">
         <ccTool>
         </ccTool>
+      </item>
+      <item path="cmd.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="cmd.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
         <ccTool>

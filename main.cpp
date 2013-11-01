@@ -18,13 +18,14 @@
 #include "PICProgramLine.h"
 #include "HexClass.h"
 #include "throwcodes.h"
+#include "cmd.h"
 
 using namespace std;
 
 int main(int argc, char** argv) 
 {
- unsigned char c;
 
+ cmd_cCmd ProgCommand(argv, "i:b:p:e:");    
  serialstream comstream(string("COM8"), 19200);
  try 
  {

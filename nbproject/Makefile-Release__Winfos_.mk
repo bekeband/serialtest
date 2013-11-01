@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/426300299/PICProgramLine.o \
 	${OBJECTDIR}/_ext/426300299/serialstream.o \
 	${OBJECTDIR}/HexClass.o \
+	${OBJECTDIR}/cmd.o \
 	${OBJECTDIR}/main.o
 
 
@@ -85,6 +86,11 @@ ${OBJECTDIR}/HexClass.o: HexClass.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -DWINDOWS -MMD -MP -MF $@.d -o ${OBJECTDIR}/HexClass.o HexClass.cpp
+
+${OBJECTDIR}/cmd.o: cmd.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -DWINDOWS -MMD -MP -MF $@.d -o ${OBJECTDIR}/cmd.o cmd.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -12,7 +12,7 @@
 //#include "PICProgramLine.h"
 
 serialstream::serialstream() {
-  comHandle = 0;
+  comHandle = INVALID_HANDLE_VALUE;
 }
 
 serialstream::serialstream(string aPortName, DWORD aBaudRate, int aByteSize, DWORD aInBufferSize,
@@ -27,7 +27,7 @@ serialstream::serialstream(string aPortName, DWORD aBaudRate, int aByteSize, DWO
 }
 
 bool serialstream::OpenPort()
-{  int g = 0;
+{
 
 #if defined (_WIN32)    /* TODO Must parameterize !!! */
 
@@ -110,21 +110,21 @@ serialstream::serialstream(const serialstream& orig) {
 
 serialstream::~serialstream()
 {
-    ClosePort();
+  ClosePort();
 }
 
 ostream& serialstream::PrintFeatures(ostream& o)
 {
-    o << "Com port: " << GetPortName() << endl;
-    o << "Baud rate: " << BaudRate << endl;
-    o << "Byte size: " << ByteSize << endl;
-    o << "Inbuffer size: " << InBufferSize << endl;
-    o << "Outbuffer size: " << OutBufferSize << endl;
+  o << "Com port: " << GetPortName() << endl;
+  o << "Baud rate: " << BaudRate << endl;
+  o << "Byte size: " << ByteSize << endl;
+  o << "Inbuffer size: " << InBufferSize << endl;
+  o << "Outbuffer size: " << OutBufferSize << endl;
 
   return o;    
 }
 
-/* Serial stream features output. Only portname now. */
+/* Serial stream features output. Only write portname now. */
 ostream& operator <<(ostream &out, const serialstream &s) {
     out << s.GetPortName();
     return out;
