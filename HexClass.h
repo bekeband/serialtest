@@ -12,6 +12,14 @@
 #include <iomanip>
 #include <sstream>
 
+#if defined (LINUX)
+#define unsigned char BYTE
+#define unsigned short WORD
+#define unsigned int DWORD
+#else
+#include <windows.h>
+#endif
+
 #define CONVERSION_ERROR 76
 
 using namespace std;
@@ -53,10 +61,7 @@ public:
   /* Printing hexadecimal text string to parametric output stream. */
   ostream& PrintHex(ostream& o)
   { unsigned char* chr = (unsigned char*)&Value;
-  for (int i = 0; i < sizeof(Value); i++)
-    { 
-      o << hex << setw(2) << std::setfill('0') << chr[i];
-    }
+    o << hex << setw(sizeof(Value) * 2) << std::setfill('0') << (WORD)Value;
     return o; 
   };
 
@@ -67,7 +72,7 @@ public:
   inline ostream& PrintText(ostream& o) { o << Value; return o;};
 
   /* Reading binary data to stream. */
-  istream& PrintBin(istream& istr)
+  istream& GettBin(istream& istr)
   { unsigned char* chr = (unsigned char*)&Value;
     for (int i = 0; i < sizeof(Value); i++)
     { 
@@ -85,13 +90,9 @@ public:
     }
     return o;  
   }
-
-/*    friend ostream& operator << (ostream &, const HexClass<int>&);
-    friend istream& operator >> (istream &, HexClass&);        */
-//    ostream& operator << (ostream &);        
     
-//private:
-    /* long value than max field width is 8 characters. */
+private:
+  /* This is the value type correspondong the template typename definition. */
     TYPE Value;
 };
 

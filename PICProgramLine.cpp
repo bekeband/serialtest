@@ -9,10 +9,10 @@
 #include "PICProgramLine.h"
 #include "HexClass.h"
 
-PICProgramLine::PICProgramLine() {
+PICProgramLine::PICProgramLine() : ByteCount(0), Address(0), CrcByte(0), LineType(0) {
   /* Clearing, and emptying DataLine for next data reading. */
-   DataLine.clear();
-   ByteCount = Address = CrcByte = 0;
+  DataLine.clear();
+//   ByteCount = Address = CrcByte = 0;
 }
 
 PICProgramLine::PICProgramLine(const PICProgramLine& orig) {
@@ -24,8 +24,8 @@ PICProgramLine::~PICProgramLine() {
 istream& operator >> (istream& i, PICProgramLine& p)
 {
   char startchar;
-  HexClass<char> bytecount, linetype, crc, nextbyte;
-  HexClass<short int> address;
+  HexClass<BYTE> nextbyte;
+/*  HexClass<short int> address;*/
   
   /* read, and test the sterta character ... */
   i >> startchar;
@@ -38,24 +38,18 @@ istream& operator >> (istream& i, PICProgramLine& p)
   };
   try
   {
+    p.ByteCount.GetHex(i);
+    p.Address.GetHex(i);
+    p.LineType.GetHex(i);
     
-    bytecount.GetHex(i);
-    address.GetHex(i);
-    linetype.GetHex(i);
-    
-  p.ByteCount = bytecount.Value;
-  p.Address = address.Value;
-  p.LineType = (enum PICProgramLine::e_DataType)linetype.Value;
-  
-  for (int ptr = 0; ptr < p.ByteCount; ptr++)
+  for (int ptr = 0; ptr < p.ByteCount.GetValue(); ptr++)
   {
     nextbyte.GetHex(i);
-    p.DataLine.insert(p.DataLine.end(), nextbyte.Value);
+    p.DataLine.insert(p.DataLine.end(), nextbyte.GetValue());
   }
   
   /* At the end we read the crc byte. */
-  crc.GetHex(i);
-  p.CrcByte = crc.Value;
+    p.CrcByte.GetHex(i);
   
   }catch (exception e)
   {
@@ -72,19 +66,23 @@ istream& operator >> (istream& i, PICProgramLine& p)
 ostream& operator << (ostream& o, PICProgramLine& p)
 {
 #if defined (DEBUG)
-    cerr << " ByteCount = " << (int)p.ByteCount;
+  cerr << " ByteCount = ";
+  p.ByteCount.PrintHex(cerr);
 #endif
-  o << p.ByteCount;
+  p.ByteCount.PrintBin(o);
 #if defined (DEBUG)
-    cerr << " Address = " << (int)p.Address;
+  cerr << " Address = ";
+  p.Address.PrintHex(cerr);
 #endif
-  o << p.Address;
+  p.Address.PrintBin(o);
 #if defined (DEBUG)
-    cerr << " LineType = " << (int)p.LineType;
+  cerr << " LineType = ";
+  p.LineType.PrintHex(cerr);
 #endif
-  o << p.LineType;
+  p.LineType.PrintBin(o);
 
-vector<unsigned char>::iterator it;
+/* HecClass class type iterator for line vector. */
+vector< HexClass<BYTE> >::iterator it;
   
 #if defined (DEBUG)
 int numb = 0;
@@ -92,19 +90,20 @@ int numb = 0;
   
   for (it = p.DataLine.begin(); it != p.DataLine.end(); ++it)
   {   
-    cerr << hex << "p.DataLine.at(" << setw(2) << setfill('0') << dec << 
-      numb++ <<  ") = " << hex << setw(2) << setfill('0') << (int)(*it) << endl;
+    cerr << hex << "p.DataLine.at(" << setw(2) << setfill('0') << dec << numb++ <<  ") = ";
+    it->PrintHex(cerr); cerr << endl;
   } 
 #endif
   for (it = p.DataLine.begin(); it != p.DataLine.end(); ++it)
   {
-    o << (*it);  
+    it->PrintBin(o);
   }
   
 #if defined (DEBUG) 
-  cerr << " CrcByte = " << hex << (int)p.CrcByte << endl;
+  cerr << " CrcByte = ";
+  p.CrcByte.PrintHex(cerr);
+  cerr << endl;
 #endif  
-  o << hex << p.CrcByte;
-  
+  p.CrcByte.PrintBin(o);
   return o;
 }

@@ -26,13 +26,13 @@ int main(int argc, char** argv)
 
  
  string o("test.hex");
- string nextline;
- 
  ifstream ifile;
  /* failbit, badbit exceptions */
  ifile.exceptions (ifstream::failbit);
  
  fstream ofile("out.bin", ios::binary | ios::out);
+
+// vector< HexClass<BYTE> > HCVector;
  
  try
  {

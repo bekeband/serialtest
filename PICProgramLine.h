@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <vector>
+#include "HexClass.h"
 
 #define START_CHARACTER ':'
 
@@ -21,7 +22,7 @@ public:
     PICProgramLine();
     PICProgramLine(const PICProgramLine& orig);
     virtual ~PICProgramLine();
-    inline void SetByteCount(unsigned char aByteCount) {ByteCount = aByteCount;}; //
+//    inline void SetByteCount(unsigned char aByteCount) {ByteCount = aByteCount;}; //
     /* Type of program data. */
     enum e_DataType {PRG, EEPROM, CONFIG};
     
@@ -32,13 +33,13 @@ public:
     /* A program line reading from input stream. */
     friend istream& operator >> (istream &, PICProgramLine&);    
 
-private:  
-    unsigned char ByteCount;
-    unsigned int Address;
-    unsigned char CrcByte;
-    enum e_DataType LineType;   
+public:
+  HexClass<BYTE> ByteCount;
+  HexClass<WORD> Address;
+  HexClass<BYTE> CrcByte;
+  HexClass<BYTE> LineType;
     
-    vector<unsigned char> DataLine; /* DataLine array in vector. */
+  vector< HexClass<BYTE> > DataLine;
     
 private:     
 public:
