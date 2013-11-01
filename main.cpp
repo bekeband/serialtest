@@ -13,10 +13,11 @@
 #include <istream>
 #include <fstream>
 
-#include "serial.h"
+#include "serialstream.h"
 #include "bootloader.h"
 #include "PICProgramLine.h"
 #include "HexClass.h"
+#include "throwcodes.h"
 
 using namespace std;
 
@@ -24,6 +25,25 @@ int main(int argc, char** argv)
 {
  unsigned char c;
 
+ serialstream comstream(string("COM8"), 19200);
+ try 
+ {
+   comstream.OpenPort();
+ } catch (int error_code)
+ {
+   if ((error_code > COMSTREAM_BASE) && (error_code < COMSTREAM_BASE + 9))
+   {
+    cerr << "ComStream class error. Error code = " << error_code << endl;
+    cerr << "" << endl;
+    return -1;
+   };
+ } catch(exception e)
+ {
+   cerr << "catch(exception e) = " << e.what() << endl;
+ } catch (...)
+ {
+   cerr << "catch (...)" << endl;
+ };
  
  string o("test.hex");
  ifstream ifile;
@@ -48,9 +68,12 @@ int main(int argc, char** argv)
     ifile >> Line;
  
     ofile << Line;
+    comstream << Line;
+    
   };
   ofile.close();
   ifile.close();
+  comstream.ClosePort();
  } catch (ifstream::failure e)
  {
    if (!ifile.eof())

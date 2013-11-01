@@ -5,8 +5,9 @@
  * Created on 2013. október 20., 11:45
  */
 
-#ifndef SERIAL_H
-#define	SERIAL_H
+#ifndef SERIALSTREAM_H
+#define	SERIALSTREAM_H
+
 
 #define DEFAULT_IN_BUFFER_SIZE 2000
 #define DEFAULT_OUT_BUFFER_SIZE 1600
@@ -16,24 +17,20 @@
 
 #include <string>
 #include <iostream>
-#if defined (_WIN32)
-#include <windows.h>
-#define FILE_HANDLE HANDLE
-#endif
-#if defined (LINUX)
-#define FILE_HANDLE int
-#define DWORD unsigned int 
-#endif
+
+#include "opersys.h"
+#include "PICProgramLine.h"
+#include "throwcodes.h"
 
 using namespace std;
 
-class serial : public iostream {
+class serialstream {
 public:
-    serial();
-    serial(string aPortName, DWORD = DEFAULT_BAUD_RATE, int = DEFAULT_BYTE_SIZE,
+    serialstream();
+    serialstream(string aPortName, DWORD = DEFAULT_BAUD_RATE, int = DEFAULT_BYTE_SIZE,
             DWORD = DEFAULT_IN_BUFFER_SIZE, DWORD = DEFAULT_OUT_BUFFER_SIZE);
 
-    serial(const serial& orig);
+    serialstream(const serialstream& orig);
 
     /* GetPortName */
     inline const string& GetPortName() const {
@@ -54,23 +51,39 @@ public:
 
     ostream& PrintFeatures(ostream&);
 
-    bool WriteData(char c);
-    bool WriteData(int data);
+    /* Writedata to serial port. */    
+    template <typename TYPE> bool WriteData(TYPE data)
+    {
+    #if defined (_WIN32)
+    DWORD dwBytesWritten; /* TODO Must observe the case of the dwBytesWritten not equal the 
+                           BytesToWritten parameter. */
+      if (!WriteFile(comHandle, &data, sizeof(data), &dwBytesWritten, NULL ))
+      {
+        throw WRITEFILE_ERROR;
+      } return true;
+    #endif 
+    }
+    
     bool WriteBuffer(unsigned char*, int);
 
     bool ReadBuffer(unsigned char*, int&);
 
-    bool OpenPort() throw();
+    bool OpenPort();
     void ClosePort();
     
-    
-    
     /* Destructor with file close. */
-    virtual ~serial();
+    virtual ~serialstream();
 
-    friend ostream& operator<<(ostream&, const serial&);
-    friend istream& operator>>(istream&, serial&);
+    friend ostream& operator<<(ostream&, const serialstream&);
+/*    friend istream& operator>>(istream&, serialstream&);*/
+    
+/*    inline friend serialstream& operator<<(serialstream& sstream, const PICProgramLine& p)
+    {
+      return sstream;
+    }*/
 
+    friend serialstream& operator<<(serialstream&, PICProgramLine& p);
+    
 private:
     string PortName;
     FILE_HANDLE comHandle;
@@ -99,5 +112,5 @@ private:
     DWORD OutBufferSize;
 };
 
-#endif	/* SERIAL_H */
+#endif	/* SERIALSTREAM_H */
 

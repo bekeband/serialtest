@@ -37,7 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/426300299/PICProgram.o \
 	${OBJECTDIR}/_ext/426300299/PICProgramLine.o \
-	${OBJECTDIR}/_ext/426300299/serial.o \
+	${OBJECTDIR}/_ext/426300299/serialstream.o \
 	${OBJECTDIR}/HexClass.o \
 	${OBJECTDIR}/main.o
 
@@ -76,10 +76,10 @@ ${OBJECTDIR}/_ext/426300299/PICProgramLine.o: ../SerialTest/PICProgramLine.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -DDEBUG -DWINDOWS -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/PICProgramLine.o ../SerialTest/PICProgramLine.cpp
 
-${OBJECTDIR}/_ext/426300299/serial.o: ../SerialTest/serial.cpp 
+${OBJECTDIR}/_ext/426300299/serialstream.o: ../SerialTest/serialstream.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/426300299
 	${RM} $@.d
-	$(COMPILE.cc) -g -DDEBUG -DWINDOWS -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/serial.o ../SerialTest/serial.cpp
+	$(COMPILE.cc) -g -DDEBUG -DWINDOWS -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/426300299/serialstream.o ../SerialTest/serialstream.cpp
 
 ${OBJECTDIR}/HexClass.o: HexClass.cpp 
 	${MKDIR} -p ${OBJECTDIR}

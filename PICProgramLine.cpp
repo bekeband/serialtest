@@ -8,6 +8,7 @@
 #include <iomanip>
 #include "PICProgramLine.h"
 #include "HexClass.h"
+#include "throwcodes.h"
 
 PICProgramLine::PICProgramLine() : ByteCount(0), Address(0), CrcByte(0), LineType(0) {
   /* Clearing, and emptying DataLine for next data reading. */
@@ -25,16 +26,12 @@ istream& operator >> (istream& i, PICProgramLine& p)
 {
   char startchar;
   HexClass<BYTE> nextbyte;
-/*  HexClass<short int> address;*/
   
   /* read, and test the sterta character ... */
   i >> startchar;
-  if (startchar == START_CHARACTER)
+  if (startchar != START_CHARACTER)
   {
-      
-  } else
-  {
-      throw(E_NO_START_CHARACTER);
+    throw(E_NO_START_CHARACTER);
   };
   try
   {
@@ -81,7 +78,7 @@ ostream& operator << (ostream& o, PICProgramLine& p)
 #endif
   p.LineType.PrintBin(o);
 
-/* HecClass class type iterator for line vector. */
+/* HexClass class type iterator for line vector. */
 vector< HexClass<BYTE> >::iterator it;
   
 #if defined (DEBUG)
@@ -107,3 +104,4 @@ int numb = 0;
   p.CrcByte.PrintBin(o);
   return o;
 }
+

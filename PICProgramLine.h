@@ -10,10 +10,9 @@
 #include <iostream>
 #include <vector>
 #include "HexClass.h"
+//#include "serialstream.h"
 
 #define START_CHARACTER ':'
-
-#define E_NO_START_CHARACTER 34
 
 using namespace std;
 
@@ -30,6 +29,10 @@ public:
     
     /* Write the program line to output stream. */
     friend ostream& operator << (ostream &, PICProgramLine&);
+    
+    /* Write the program line to serialstream. */
+//    friend serialstream& operator << (serialstream &, PICProgramLine&);
+    
     /* A program line reading from input stream. */
     friend istream& operator >> (istream &, PICProgramLine&);    
 

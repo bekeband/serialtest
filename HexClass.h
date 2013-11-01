@@ -12,15 +12,7 @@
 #include <iomanip>
 #include <sstream>
 
-#if defined (LINUX)
-#define unsigned char BYTE
-#define unsigned short WORD
-#define unsigned int DWORD
-#else
-#include <windows.h>
-#endif
-
-#define CONVERSION_ERROR 76
+#include "opersys.h"
 
 using namespace std;
 

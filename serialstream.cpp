@@ -4,17 +4,21 @@
  * Created on 2013. október 20., 11:45
  */
 
-#include "serial.h"
 #include <iostream>
 
-serial::serial() {
+#include "HexClass.h"
+#include "serialstream.h"
+#include "throwcodes.h"
+//#include "PICProgramLine.h"
+
+serialstream::serialstream() {
   comHandle = 0;
 }
 
-serial::serial(string aPortName, DWORD aBaudRate, int aByteSize, DWORD aInBufferSize,
+serialstream::serialstream(string aPortName, DWORD aBaudRate, int aByteSize, DWORD aInBufferSize,
         DWORD aOutBufferSize) 
 {
-  serial(); /* reset comHandle... */
+  serialstream(); /* reset comHandle... */
   PortName = aPortName;
   BaudRate = aBaudRate;
   ByteSize = aByteSize;
@@ -22,15 +26,18 @@ serial::serial(string aPortName, DWORD aBaudRate, int aByteSize, DWORD aInBuffer
   OutBufferSize = aOutBufferSize;
 }
 
-bool serial::OpenPort() throw()
+bool serialstream::OpenPort()
 {  int g = 0;
 
 #if defined (_WIN32)    /* TODO Must parameterize !!! */
 
 /* Createfile with PortName filename. */
-  comHandle = CreateFile( PortName.c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, 
+#if defined (DEBUG)
+cerr << "CreateFile " << PortName << endl;
+#endif
+comHandle = CreateFile( PortName.c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, 
       OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
-  if (comHandle == NULL) { return false;}
+if (comHandle == INVALID_HANDLE_VALUE) { throw SERIAL_CREATEFILE_ERROR;};
   
   /* Setting the commtimeouts structure. */
 
@@ -51,14 +58,14 @@ bool serial::OpenPort() throw()
       {
           return true;
       }
-    }
-  }
+    } else {throw SETUPCOMM_ERROR;};
+  } else {throw SETCOMMSTATE_ERROR;};
 #endif        
   
   return false;
 }
 
-void serial::ClosePort()
+void serialstream::ClosePort()
 {
 #if defined (_WIN32)
     if (comHandle)
@@ -66,28 +73,12 @@ void serial::ClosePort()
 #endif
 }
 
-bool serial::WriteData(char c)
-{ 
-#if defined (_WIN32)
-  DWORD dwBytesWritten;
-  return WriteFile(comHandle, &c, 1, &dwBytesWritten, NULL );    
-#endif
-}
-    
-bool serial::WriteData(int data)
-{
-#if defined (_WIN32)
-  DWORD dwBytesWritten;
-  return WriteFile(comHandle, &data, 1, &dwBytesWritten, NULL );    
-#endif    
-}
-
-bool serial::WriteBuffer(unsigned char* buffer, int size)
+bool serialstream::WriteBuffer(unsigned char* buffer, int size)
 {
 #if defined (_WIN32)
   for (int i = 0; i < size; i++)
   {
-    if (!WriteData(buffer[i]))
+    if (!WriteData<BYTE>(buffer[i]))
     {
       return false;     
     }
@@ -95,7 +86,7 @@ bool serial::WriteBuffer(unsigned char* buffer, int size)
   return true;
 #endif
 }
-bool serial::ReadBuffer(unsigned char* buffer, int &size)
+bool serialstream::ReadBuffer(unsigned char* buffer, int &size)
 {
 #if defined (_WIN32)
   DWORD dwBytesRead, dwErrorFlags;
@@ -114,15 +105,15 @@ bool serial::ReadBuffer(unsigned char* buffer, int &size)
 #endif
 }
 
-serial::serial(const serial& orig) {
+serialstream::serialstream(const serialstream& orig) {
 }
 
-serial::~serial()
+serialstream::~serialstream()
 {
     ClosePort();
 }
 
-ostream& serial::PrintFeatures(ostream& o)
+ostream& serialstream::PrintFeatures(ostream& o)
 {
     o << "Com port: " << GetPortName() << endl;
     o << "Baud rate: " << BaudRate << endl;
@@ -133,7 +124,33 @@ ostream& serial::PrintFeatures(ostream& o)
   return o;    
 }
 
-ostream& operator <<(ostream &out, const serial &s) {
+/* Serial stream features output. Only portname now. */
+ostream& operator <<(ostream &out, const serialstream &s) {
     out << s.GetPortName();
     return out;
 }
+
+/* PICProgramLine to serialstream transfer. */
+serialstream& operator<<(serialstream& sstream, PICProgramLine& p)
+{ stringstream os; BYTE inbyte;
+  p.ByteCount.PrintBin(os);
+  p.Address.PrintBin(os);
+  p.LineType.PrintBin(os);
+  
+  vector< HexClass<BYTE> >::iterator it;
+  
+  for (it = p.DataLine.begin(); it != p.DataLine.end(); ++it)
+  {
+    it->PrintBin(os);
+  }
+  
+  p.CrcByte.PrintBin(os);
+  
+  while (!os.eof())
+  {
+    os >> inbyte; 
+    sstream.WriteData<BYTE>(inbyte);
+  }
+  return sstream;
+}
+

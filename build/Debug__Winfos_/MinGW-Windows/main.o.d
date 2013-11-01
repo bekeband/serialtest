@@ -1,10 +1,14 @@
-build/Debug__Winfos_/MinGW-Windows/main.o: main.cpp serial.h bootloader.h \
- PICProgramLine.h HexClass.h
+build/Debug__Winfos_/MinGW-Windows/main.o: main.cpp serialstream.h \
+ opersys.h PICProgramLine.h HexClass.h throwcodes.h bootloader.h
 
-serial.h:
+serialstream.h:
 
-bootloader.h:
+opersys.h:
 
 PICProgramLine.h:
 
 HexClass.h:
+
+throwcodes.h:
+
+bootloader.h:
