@@ -21,6 +21,7 @@
 #include "opersys.h"
 #include "PICProgramLine.h"
 #include "throwcodes.h"
+#include "MyString.h"
 
 using namespace std;
 
@@ -83,6 +84,11 @@ public:
     }*/
 
     friend serialstream& operator<<(serialstream&, PICProgramLine& p);
+    friend serialstream& operator<<(serialstream&, MyString& p);
+    friend serialstream& operator<<(serialstream&, char);
+    friend serialstream& operator<<(serialstream&, string&);    
+    
+    friend serialstream& operator>>(serialstream&, PICProgramLine& p);
     
 private:
     string PortName;

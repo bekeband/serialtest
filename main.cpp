@@ -18,14 +18,13 @@
 #include "PICProgramLine.h"
 #include "HexClass.h"
 #include "throwcodes.h"
-#include "cmd.h"
+#include "MyString.h"
 
 using namespace std;
 
 int main(int argc, char** argv) 
 {
-
- cmd_cCmd ProgCommand(argv, "i:b:p:e:");    
+    
  serialstream comstream(string("COM8"), 19200);
  try 
  {
@@ -52,8 +51,6 @@ int main(int argc, char** argv)
  ifile.exceptions (ifstream::failbit);
  
  fstream ofile("out.bin", ios::binary | ios::out);
-
-// vector< HexClass<BYTE> > HCVector;
  
  try
  {
@@ -69,8 +66,10 @@ int main(int argc, char** argv)
     ifile >> Line;
  
     ofile << Line;
-    comstream << Line;
-    
+    string so("COMMSTREAM OUT");
+//    comstream << '4' << endl;
+    comstream << so;
+//    comstream << Line;
   };
   ofile.close();
   ifile.close();

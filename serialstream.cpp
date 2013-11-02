@@ -5,6 +5,7 @@
  */
 
 #include <iostream>
+#include <string>
 
 #include "HexClass.h"
 #include "serialstream.h"
@@ -153,4 +154,29 @@ serialstream& operator<<(serialstream& sstream, PICProgramLine& p)
   }
   return sstream;
 }
+/* String to serialstream. */
+serialstream& operator<<(serialstream& sstream, string& instr)
+{ 
+  string::iterator it; 
+  for (it = instr.begin(); it != instr.end(); ++it)
+  {
+    sstream.WriteData<char>(*it);
+  };
+  return sstream;
+}
 
+serialstream& operator<<(serialstream& sstream, char c)
+{
+  
+}
+
+serialstream& operator<<(serialstream&, MyString& p)
+{
+  
+}
+
+/* */
+serialstream& operator>>(serialstream& sstream, PICProgramLine& p)
+{
+  return sstream;
+}
